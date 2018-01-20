@@ -12,7 +12,7 @@ const isValidIp = ip => {
 
 const isValidUsername = username => {
   if (!username) {
-    throw new TypeError('init(options): Username property must be passed to configuration object');
+    throw new TypeError('init(options): Username property must be passed to configuration object.');
   }
 }
 
