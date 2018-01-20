@@ -1,0 +1,25 @@
+{
+  "name": "hue_api_v2",
+  "version": "1.0.0",
+  "description": "A Lightweight Wrapper Around Philips Hue Api Wriiten in Node",
+  "main": "./dist/index.js",
+  "author": "mtaggart",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf ./dist && mkdir dist && touch ./dist/index.js",
+    "build": "npm run clean && ./node_modules/.bin/babel ./src/index.js --out-file ./dist/index.js --presets=env",
+    "prepublish": "npm run build",
+    "test": "./node_modules/.bin/jest"
+  },
+  "dependencies": {
+    "node-fetch": "^1.7.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.15.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "jest": "^22.0.6"
+  }
+}
