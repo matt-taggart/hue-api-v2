@@ -2,5 +2,12 @@
   "extends": "airbnb-base",
   "rules": {
     "arrow-parens": [2, "as-needed", { "requireForBlockBody": false }]
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "env": {
+    "jest": true
   }
 }
