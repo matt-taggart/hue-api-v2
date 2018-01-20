@@ -9,7 +9,8 @@
     "clean": "rm -rf ./dist && mkdir dist && touch ./dist/index.js",
     "build": "npm run clean && ./node_modules/.bin/babel ./src/index.js --out-file ./dist/index.js --presets=env",
     "prepublish": "npm run build",
-    "test": "./node_modules/.bin/jest"
+    "test": "./node_modules/.bin/jest",
+    "watch": "./node_modules/.bin/jest --watch"
   },
   "dependencies": {
     "node-fetch": "^1.7.3"
