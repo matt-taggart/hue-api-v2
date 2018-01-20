@@ -1,6 +1,7 @@
-describe('Hue Instance', () => {
-  const Hue = require('./../index');
+import Hue from './../index';
+import HueDirectInstance from './../instance';
 
+describe('Hue Instance', () => {
   it('Should fail to create Hue instance due to invalid config object format', () => {
     expect(() => {
       Hue.init(false);
@@ -29,5 +30,11 @@ describe('Hue Instance', () => {
     expect(() => {
       Hue.init({ ip: '127.0.0.1', username: 127 });
     }).toThrowError('init(options): Username property must be of type string.');
+  });
+
+  it('Should create instance of Hue class', () => {
+    const hue = Hue.init({ ip: '127.0.0.1', username: 'Walter White' });
+    expect(hue).toBeInstanceOf(HueDirectInstance);
+    expect(hue).toEqual({ ip: '127.0.0.1', username: 'Walter White' });
   });
 });

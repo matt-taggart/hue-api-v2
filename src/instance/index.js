@@ -1,7 +1,7 @@
 class Hue {
-  constructor() {
+  constructor(ip, username) {
     this.ip = ip;
-    this.name = name;
+    this.username = username;
   }
 }
 

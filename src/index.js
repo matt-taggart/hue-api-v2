@@ -1,9 +1,11 @@
 import Hue from './instance';
 import { validateArguments } from './utils';
 
-export const init = config => {
-  validateArguments(config);
-  const { ip, name } = config;
+export default {
+  init(config) {
+    validateArguments(config);
+    const { ip, username } = config;
 
-  return new Hue(ip, name);
-}
+    return new Hue(ip, username);
+  },
+};
