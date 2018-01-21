@@ -1,5 +1,5 @@
 import Hue from './../index';
-import HueDirectInstance from './../instance';
+import HueInstance from './../instance';
 
 describe('Hue Instance', () => {
   it('Should fail to create Hue instance due to invalid config object format', () => {
@@ -34,7 +34,7 @@ describe('Hue Instance', () => {
 
   it('Should create instance of Hue class', () => {
     const hue = Hue.init({ ip: '127.0.0.1', username: 'Walter White' });
-    expect(hue).toBeInstanceOf(HueDirectInstance);
+    expect(hue).toBeInstanceOf(HueInstance);
     expect(hue).toEqual({ ip: '127.0.0.1', username: 'Walter White' });
   });
 });
