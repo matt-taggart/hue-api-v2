@@ -16,7 +16,7 @@ class Hue {
   }
   async getLight({ id }) {
     if (!id) {
-      throw new TypeError('getLight(id): id parameter is missing.');
+      throw new Error('getLight(id): id parameter is missing.');
     }
 
     try {
@@ -43,6 +43,29 @@ class Hue {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ name }),
+      });
+
+      return httpRequest.json();
+    } catch (error) {
+      throw new Error(`Hue API Error: ${error.message}`);
+    }
+  }
+  async setLightState({ id, body }) {
+    if (!id) {
+      throw new Error('setLightState(id, body): id parameter is missing.');
+    }
+
+    if (!body) {
+      throw new Error('setLightState(id, body): boy parameter is missing');
+    }
+    
+    try {
+      const httpRequest = await fetch(`http://${this.ip}/api/${this.username}/lights/${id}/state`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...body }),
       });
 
       return httpRequest.json();

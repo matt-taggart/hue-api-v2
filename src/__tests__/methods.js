@@ -62,7 +62,7 @@ describe('Should test methods on Hue instance', () => {
     expect(light.name).toBe('Hue color lamp 1');
   });
 
-  it('Should fail to rename light due to missing id paramter', async () => {
+  it('Should fail to rename light due to missing id parameter', async () => {
     const hue = {
       renameLight: jest.fn(({ id, name }) => { 
         if (!id) {
@@ -78,7 +78,7 @@ describe('Should test methods on Hue instance', () => {
     }
   });
 
-  it('Should fail to rename light due to missing name paramter', async () => {
+  it('Should fail to rename light due to missing name parameter', async () => {
     const hue = {
       renameLight: jest.fn(({ id, name }) => { 
         if (!name) {
@@ -106,7 +106,55 @@ describe('Should test methods on Hue instance', () => {
     const result = await hue.renameLight('1', 'Bedroom Light');
 
     expect(result[0]).toEqual(expect.objectContaining({
-      success: expect.any(Object),
+      success: expect.objectContaining({ '/lights/1/name': expect.any(String) }),
+    }))
+  });
+
+  it('Should fail to set light state due to missing id parameter', async () => {
+    const hue = {
+      setLightState: jest.fn(({ id, body }) => { 
+        if (!name) {
+          throw new Error('renameLight(id, name): name parameter is missing.') 
+        }
+      }),
+    };
+
+    try {
+      await hue.setLightState({ body: { on: true } });
+    } catch (error) {
+      expect(error.message).toBe('setLightState(id, body): id parameter is missing.');
+    }
+  });
+
+  it('Should fail to set light state due to missing body', async () => {
+    const hue = {
+      setLightState: jest.fn(({ id, body }) => { 
+        if (!name) {
+          throw new Error('setLightState(id, body): body is missing.') 
+        }
+      }),
+    };
+
+    try {
+      await hue.setLightState({ id: '1' });
+    } catch (error) {
+      expect(error.message).toBe('renameLight(id, name): name parameter is missing.');
+    }
+  });
+
+  it('Should set light state to "on"', async () => {
+    const hue = {
+      setLightState: jest.fn(({ id, body }) => Promise.resolve([{
+        success: {
+          '/lights/1/state/on': true,
+        }
+      }])),
+    };
+
+    const result = await hue.setLightState({ id: '1', body: { on: true } });
+
+    expect(result[0]).toEqual(expect.objectContaining({
+      success: expect.objectContaining({ '/lights/1/state/on': expect.any(Boolean) }),
     }))
   });
 })

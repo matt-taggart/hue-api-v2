@@ -6,7 +6,7 @@ const isObject = config => {
 
 const isValidIp = ip => {
   if (!ip) {
-    throw new TypeError('init(options): IP property must be passed to configuration object.');
+    throw new Error('init(options): IP property must be passed to configuration object.');
   }
   if (typeof ip !== 'string') {
     throw new TypeError('init(options): IP property must be of type string.');
@@ -15,7 +15,7 @@ const isValidIp = ip => {
 
 const isValidUsername = username => {
   if (!username) {
-    throw new TypeError('init(options): Username property must be passed to configuration object.');
+    throw new Error('init(options): Username property must be passed to configuration object.');
   }
   if (typeof username !== 'string') {
     throw new TypeError('init(options): Username property must be of type string.');
