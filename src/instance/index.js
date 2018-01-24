@@ -73,6 +73,22 @@ class Hue {
       throw new Error(`Hue API Error: ${error.message}`);
     }
   }
+  async turnOnAllLights() {
+    const lights = await this.getAllLights();
+    const ids = Object.keys(lights);
+
+    await Promise.all(ids.map(id => (
+      hue.setLightState({ id, body: { on: true } })
+    )));
+  }
+  async turnOffAllLights() {
+    const lights = await this.getAllLights();
+    const ids = Object.keys(lights);
+
+    await Promise.all(ids.map(id => (
+      hue.setLightState({ id, body: { on: false } })
+    )));
+  }
 }
 
 export default Hue;

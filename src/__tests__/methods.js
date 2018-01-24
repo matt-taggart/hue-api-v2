@@ -157,4 +157,46 @@ describe('Should test methods on Hue instance', () => {
       success: expect.objectContaining({ '/lights/1/state/on': expect.any(Boolean) }),
     }))
   });
-})
+
+  it('Should turn on all lights', async () => {
+    const hue = {
+      turnOnAllLights: jest.fn(() => Promise.resolve([{
+        success: {
+          '/lights/1/state/on': true,
+        }
+      }])),
+    };
+
+    const result = await hue.turnOnAllLights();
+    
+    expect(result[0]).toEqual(expect.objectContaining({
+      success: expect.objectContaining({ '/lights/1/state/on': expect.any(Boolean) }),
+    }))
+  });
+
+  it('Should turn off all lights', async () => {
+    const hue = {
+      turnOffAllLights: jest.fn(() => Promise.resolve([{
+        success: {
+          '/lights/1/state/on': true,
+        }
+      }])),
+    };
+
+    const result = await hue.turnOffAllLights();
+
+    expect(result[0]).toEqual(expect.objectContaining({
+      success: expect.objectContaining({ '/lights/1/state/on': expect.any(Boolean) }),
+    }))
+  });
+});
+
+// const hue = Hue.init({ ip: process.env.IP, username: process.env.USERNAME });
+
+// const lights = await hue.getAllLights();
+// const ids = Object.keys(lights);
+
+// const results = await Promise.all(ids.map(id => (
+//   hue.setLightState({ id, body: { on: false } })
+// )));
+// console.log('results', results);
