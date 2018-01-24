@@ -56,9 +56,8 @@ class Hue {
     }
 
     if (!body) {
-      throw new Error('setLightState(id, body): boy parameter is missing');
+      throw new Error('setLightState(id, body): body parameter is missing');
     }
-    
     try {
       const httpRequest = await fetch(`http://${this.ip}/api/${this.username}/lights/${id}/state`, {
         method: 'PUT',
@@ -73,11 +72,25 @@ class Hue {
       throw new Error(`Hue API Error: ${error.message}`);
     }
   }
+  async setLightStateAll(body) {
+    if (!body) {
+      throw new Error('setLightStateAll(body): body parameter is missing');
+    }
+
+    const lights = await hue.getAllLights();
+    const ids = Object.keys(lights);
+
+    await this.turnOnAllLights();
+
+    return await Promise.all(ids.map(id => (
+      hue.setLightState({ id, body })
+    )));
+  }
   async turnOnAllLights() {
     const lights = await this.getAllLights();
     const ids = Object.keys(lights);
 
-    await Promise.all(ids.map(id => (
+    return await Promise.all(ids.map(id => (
       hue.setLightState({ id, body: { on: true } })
     )));
   }
@@ -85,7 +98,7 @@ class Hue {
     const lights = await this.getAllLights();
     const ids = Object.keys(lights);
 
-    await Promise.all(ids.map(id => (
+    return await Promise.all(ids.map(id => (
       hue.setLightState({ id, body: { on: false } })
     )));
   }

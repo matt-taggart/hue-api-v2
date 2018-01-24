@@ -129,8 +129,8 @@ describe('Should test methods on Hue instance', () => {
   it('Should fail to set light state due to missing body', async () => {
     const hue = {
       setLightState: jest.fn(({ id, body }) => { 
-        if (!name) {
-          throw new Error('setLightState(id, body): body is missing.') 
+        if (!body) {
+          throw new Error('setLightState(id, body): body paramater is missing.') 
         }
       }),
     };
@@ -138,7 +138,7 @@ describe('Should test methods on Hue instance', () => {
     try {
       await hue.setLightState({ id: '1' });
     } catch (error) {
-      expect(error.message).toBe('renameLight(id, name): name parameter is missing.');
+      expect(error.message).toBe('setLightState(id, body): body paramater is missing.');
     }
   });
 
@@ -189,14 +189,36 @@ describe('Should test methods on Hue instance', () => {
       success: expect.objectContaining({ '/lights/1/state/on': expect.any(Boolean) }),
     }))
   });
+
+  it('Should fail to set state of all lights to blue due to missing body parameter', async () => {
+    const hue = {
+      setLightStateAll: jest.fn((body) => { 
+        if (!body) {
+          throw new Error('setLightStateAll(body): body parameter is missing.') 
+        }
+      }),
+    };
+
+    try {
+      await hue.setLightStateAll({ xy: [0.166, 0.3176] });
+    } catch (error) {
+      expect(error.message).toBe('setLightStateAll(body): body paramater is missing.');
+    }
+  });
+
+  it('Should turn set state of all lights to blue', async () => {
+    const hue = {
+      setLightStateAll: jest.fn((body) => Promise.resolve([{
+        success: {
+          '/lights/1/state/xy': [0.166,0.3176],
+        }
+      }])),
+    };
+
+    const result = await hue.setLightStateAll({ xy: [0.166, 0.3176] });
+
+    expect(result[0]).toEqual(expect.objectContaining({
+      success: expect.objectContaining({ '/lights/1/state/xy': [0.166, 0.3176] }),
+    }))
+  });
 });
-
-// const hue = Hue.init({ ip: process.env.IP, username: process.env.USERNAME });
-
-// const lights = await hue.getAllLights();
-// const ids = Object.keys(lights);
-
-// const results = await Promise.all(ids.map(id => (
-//   hue.setLightState({ id, body: { on: false } })
-// )));
-// console.log('results', results);
