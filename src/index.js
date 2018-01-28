@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import Hue from './instance';
 import { validateArguments } from './utils';
 
