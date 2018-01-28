@@ -83,7 +83,7 @@ class Hue {
     await this.turnOnAllLights();
 
     return await Promise.all(ids.map(id => (
-      hue.setLightState({ id, body })
+      this.setLightState({ id, body })
     )));
   }
   async turnOnAllLights() {
@@ -91,7 +91,7 @@ class Hue {
     const ids = Object.keys(lights);
 
     return await Promise.all(ids.map(id => (
-      hue.setLightState({ id, body: { on: true } })
+      this.setLightState({ id, body: { on: true } })
     )));
   }
   async turnOffAllLights() {
@@ -99,7 +99,7 @@ class Hue {
     const ids = Object.keys(lights);
 
     return await Promise.all(ids.map(id => (
-      hue.setLightState({ id, body: { on: false } })
+      this.setLightState({ id, body: { on: false } })
     )));
   }
 }
