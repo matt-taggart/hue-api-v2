@@ -77,7 +77,7 @@ class Hue {
       throw new Error('setLightStateAll(body): body parameter is missing');
     }
 
-    const lights = await hue.getAllLights();
+    const lights = await this.getAllLights();
     const ids = Object.keys(lights);
 
     await this.turnOnAllLights();
