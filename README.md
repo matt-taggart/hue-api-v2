@@ -68,45 +68,45 @@ await Hue.setLightState({ id: 1, xy: [0.1683, 0.2822] }) // ONLY change light 1 
 
 `Hue.config([options: Object])`
 
-Initializes a new Hue instance when the following arguments are passed in as an object:
+- Initializes a new Hue instance when the following arguments are passed in as an object:
 
-* ip - Hue bridge IP address
-* username - Username configured for Hue bridge
+  - ip - Hue bridge IP address
+  - username - Username configured for Hue bridge
 
 `.getAllLights()`
 
-Retrieves  meta data for all light connected to the Hue bridge (name,  model, light state, etc.)
+- Retrieves  meta data for all light connected to the Hue bridge (name,  model, light state, etc.)
 
 `.getLight([id])`
 
-Retrieves all meta data for an individual light based on the id passed in.
+- Retrieves all meta data for an individual light based on the id passed in.
 
-* id - ID of the light that you would like to get information on.
+  - id - ID of the light that you would like to get information on.
 
 `renameLight([options])`
 
-Renames the selected light to a new name requested on the network.
+- Renames the selected light to a new name requested on the network.
 
-* id - ID of the light that you would like to target.
-* name - What to rename light to on the network.
+  - id - ID of the light that you would like to target.
+  - name - What to rename light to on the network.
 
 `setLightStateAll([options])`
 
-Changes the state of all lights on the network based on the arguments passed to the method.
+- Changes the state of all lights on the network based on the arguments passed to the method.
 
-* Register for Philips Hue API to see all options.
+  - Register for Philips Hue API to see all options.
 
 `setLightState([id, options])`
 
-Changes the state of an individual light on the network based on the arguments passed to the method.
+- Changes the state of an individual light on the network based on the arguments passed to the method.
 
-* Register for Philips Hue API to see all options.
+  - Register for Philips Hue API to see all options.
 
 `turnOnAllLights()`
 
-Turns on all lights connected to the Hue bridge.
+- Turns on all lights connected to the Hue bridge.
 
 `turnOffAllLights()`
 
-Turns off all lights connected to the Hue bridge.
+- Turns off all lights connected to the Hue bridge.
 
